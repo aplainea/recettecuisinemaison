@@ -1,6 +1,6 @@
 # Recette Cuisine Maison
 
-Projet réalisé par Antoine Plaineau
+Projet réalisé par Antoine Plaineau  
 *Copyright Antoine Plaineau 2020*
 
 
@@ -30,11 +30,11 @@ L'administrateur lui, a la possibilité de faire la même chose qu'un simple uti
 
 # Ressources 
 
-Lien vers le GitHub (Tazzus étant mon pseudonyme)
+Lien vers le GitHub (Tazzus étant mon pseudonyme)  
 https://github.com/Tazzus/recettecuisinemaison
 
-Compte test administrateur: (email/mdp)
+Compte test administrateur: (email/mdp)  
 (a déterminer)
 
-Compte test utilisateur: (email/mdp)
+Compte test utilisateur: (email/mdp)  
 (a déterminer)
