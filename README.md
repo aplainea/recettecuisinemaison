@@ -20,12 +20,12 @@ L'administrateur lui, a la possibilité de faire la même chose qu'un simple uti
 
 # 3 dates importantes
 
-**Vendredi 19 mars** 
--> Partie Symfony
-**Vendredi 7 mai** 
--> Partie VueJS (données brut au minimum)
-**Jeudi 21 mai**
--> Rendu final (Symfony + VueJS)
+**Vendredi 19 mars**  
+-> Partie Symfony  
+**Vendredi 7 mai**  
+-> Partie VueJS (données brut au minimum)  
+**Jeudi 21 mai**  
+-> Rendu final (Symfony + VueJS)  
 
 
 # Ressources 
