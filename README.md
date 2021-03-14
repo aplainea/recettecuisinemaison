@@ -33,8 +33,8 @@ L'administrateur lui, a la possibilité de faire la même chose qu'un simple uti
 Lien vers le GitHub (Tazzus étant mon pseudonyme)  
 https://github.com/Tazzus/recettecuisinemaison
 
-Compte test administrateur: (email/mdp)  
-(a déterminer)
+Compte test administrateur: (email / mdp)  
+admin@admin.fr / admin
 
-Compte test utilisateur: (email/mdp)  
-(a déterminer)
+Compte test utilisateur: (email / mdp)  
+user@user.fr / user
