@@ -1,0 +1,22 @@
+easy_admin:
+  entities:
+    Recipe:
+      form:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.recipe_images%' }
+      list:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.recipe_images%' }
+      show:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.recipe_images%' }
+    User:
+      form:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.user_images%'}
+      list:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.user_images%' }
+      show:
+        fields:
+          - { property: 'imageFile', type: 'vich_image', base_path: '%app.path.user_images%' }

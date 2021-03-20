@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->encoder->encodePassword($user, "$oneuser"));
             $user->setEmail("$oneuser@$oneuser.fr");
             $user->setAvatar("/img/avatar/$oneuser.png");
+            $user->setUpdated(new \DateTime());
             $user->setRoles(['ROLE_'.strtoupper($oneuser)]);
             $manager->persist($user);
         }
