@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col">
+                        <img src="{{ asset('uploads/images/recipes/'~recipe.picture) }}" style="width:100%; height:47.923vh">
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h2>{{ recipe.name }} #{{ recipe.id }}</h2>
+                                <p>{{ recipe.description }}</p><br>
+                                <h3>Ingrédients : </h3>
+                                <p>{{ recipe.ingredient }}</p>
+                                <h3>Temps de préparation : </h3>
+                                <p>{{ recipe.preparationtime }}</p>
+                                <h3>Prévu pour : </h3>
+                                <p>{{ recipe.nbperson}} personne(s)</p>
+                            </div>
+                        </div>
+                        <!-- SYSTEME PANIER
+                        <?php if (isset($_SESSION['id'])) : ?>
+                        <div class="row">
+                            <form action="?panier" method="post">
+                                <input type="hidden" id="idrecette" name="idrecette" value="<?= $uneRecette->getId() ?>">
+                                <input type="hidden" id="nomrecette" name="nomrecette" value="<?= $uneRecette->getNomRecette() ?>">
+                                <input type="hidden" id="prix" name="prix" value="<?= $uneRecette->getPrix() ?>">
+                                <?php if (!$_SESSION['maCommande']) : ?>
+                                <input type="submit" name="send" value="Prendre un cours vidéo pour cette recette" class="btn btn-outline-primary btn-rounded m-4 mb-5">
+                                <?php else : ?>
+                                <input type="submit" name="send" value="Vous possedez cette vidéo recette (voir Panier)" class="btn btn-outline-success btn-rounded m-4 mb-5" disabled>
+                                <?php endif; ?>
+                            </form>
+                            <?php if (empty($commandIdRecette)) : ?>
+                            <h1 class="m-4"><?= $uneRecette->getPrix() ?> €</h1>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                        -->
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}
