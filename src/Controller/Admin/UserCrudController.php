@@ -33,7 +33,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('pseudo', 'Pseudo'),
             TextField::new('name', 'Nom'),
             TextField::new('firstname', 'Prenom'),
-            DateTimeField::new('updated', 'modifiée le')
+            DateTimeField::new('updated', 'Modifiée le')
                 ->setFormat('dd/MM/yyyy à H:m'),
         ];
 

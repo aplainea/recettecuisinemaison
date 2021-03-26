@@ -34,8 +34,7 @@ class RecipeCrudController extends AbstractCrudController
             TextField::new('preparationtime', 'Temps de préparation'),
             IntegerField::new('price', 'Prix (en euro)'),
             Field::new('imageFile', "Image")
-                ->setFormType(VichImageType::class)
-                ->setTranslationParameters(['form.label.delete'=>'Delete']),
+                ->setFormType(VichImageType::class),
             AssociationField::new('category', 'Categorie'),
             AssociationField::new('user', "Fait par (utilisateur)"),
         ];

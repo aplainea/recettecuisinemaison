@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h2 class="text-center">Historique de vos commandes</h2>
+        {% if orders | length <= 0 %}
+            <h1 class="text-center m-5">Vous n'avez aucune commandes pour l'instant.</h1>
+        {% else %}
+            <br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Commande(s)</th>
+                    <th scope="col">Faite le</th>
+                    <th scope="col">Recette(s)</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td class="align-middle">{{ order.id }}</td>
+                        <td class="align-middle">{{ order.date|date('d/m/Y') }}</td>
+                        <td class="align-middle">{{ order.recipe.name }}</td>
+                        <td>
+                            <a href="/recettes/{{ order.recipe.slug }}" type="button" class="btn btn-outline-secondary mb-1"><i class="fas fa-eye"></i> Revoir la recette</a>
+                            <button type="button" class="btn btn-outline-secondary mb-1" disabled><i class="fas fa-eye-slash"></i> Voir la vidéo (bientôt disponible)</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+{% endblock %}

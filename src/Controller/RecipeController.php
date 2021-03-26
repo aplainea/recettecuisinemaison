@@ -4,25 +4,29 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Recipe;
+use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RecipeController extends AbstractController
 {
+
     /**
      * @Route("/", name="homepage")
      */
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
+
         $recipesEntree = $em->getRepository(Recipe::class)->find3RecipeByCategory("Entrée");
         $recipesPlat = $em->getRepository(Recipe::class)->find3RecipeByCategory("Plat");
         $recipesDessert = $em->getRepository(Recipe::class)->find3RecipeByCategory("Dessert");
+
         return $this->render('recipe/index.html.twig', [
             'recipesEntree' => $recipesEntree,
             'recipesPlat' => $recipesPlat,
-            'recipesDessert' => $recipesDessert,
+            'recipesDessert' => $recipesDessert
         ]);
     }
 
@@ -39,7 +43,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * @Route("/recettes/categorie/{name}", name="recipesbycategory")
+     * @Route("/categories/recettes/{name}", name="recipesbycategory")
      */
     public function showRecipesByCategory(Category $category): Response
     {
@@ -54,10 +58,15 @@ class RecipeController extends AbstractController
     /**
      * @Route("/recettes/{slug}", name="recipepage")
      */
-    public function showRecipe(Recipe $recipe): Response
+    public function showRecipe(Recipe $recipe, OrderRepository $orderRepository): Response
     {
+        $orderByRecipe = $orderRepository->findOrderByRecipe($recipe->getId());
+
+        //dd($orderByRecipe);
+
         return $this->render('recipe/recipe.html.twig', [
-            'recipe' => $recipe
+            'recipe' => $recipe,
+            //'recipeOnOrder' => $orderByRecipe
         ]);
     }
 }
