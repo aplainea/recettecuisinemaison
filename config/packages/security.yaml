@@ -38,3 +38,4 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/recettes/, roles: ROLE_USER }
         - { path: ^/panier, roles: ROLE_USER }
+        - { path: ^/commandes, roles: ROLE_USER }

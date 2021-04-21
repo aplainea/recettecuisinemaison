@@ -23,9 +23,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            // A DEV - Condition
-                            <a href="{{ path('panier_add', {'id': recipe.id}) }}" class="btn btn-outline-success btn-rounded m-4 mb-5">Prendre un cours vidéo pour cette recette</a>
-                            <a href="{{ path('orderspage')}}" class="btn btn-outline-dark btn-rounded m-4 mb-5">Vous possedez cette vidéo recette (voir Historique de vos commandes)</a>
+                            {% if onHistoryCommands %}
+                                <a href="{{ path('orderspage')}}" class="btn btn-outline-dark btn-rounded m-4 mb-5">Vous possédez déjà cette vidéo recette<br>(voir <strong>Historique de vos commandes<strong>)</a>
+                            {% elseif onPanier %}
+                                <a href="{{ path('panier')}}" class="btn btn-outline-dark btn-rounded m-4 mb-5">Cette vidéo recette se trouve déjà dans votre panier</a>
+                            {% else %}
+                                <a href="{{ path('panier_add', {'id': recipe.id}) }}" class="btn btn-outline-success btn-rounded m-4 mb-5">Mettre dans son panier cette vidéo recette</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
