@@ -2,17 +2,33 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @Vich\Uploadable
+ *
+ * @ApiResource(
+ *     collectionOperations = {"get" = {"groups" = {"read:users"}}},
+ *     itemOperations = {
+ *          "get" = {
+ *              "normalization_context" = {"groups" = {"read:users", "read:user"}}
+ *          },
+ *          "put" = {
+ *              "denormalization_context" = {"groups" = {"write:user"}}
+ *          },
+ *          "patch"
+ *     }
+ * )
  */
 class User implements UserInterface
 {
@@ -20,11 +36,15 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:users", "read:orders", "read:recipes"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @Groups({"read:users", "read:user", "write:user"})
      */
     private $email;
 
@@ -41,35 +61,43 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:users", "read:user", "write:user", "read:order", "read:recipes"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:users", "read:user", "write:user"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:users", "read:user", "write:user"})
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $avatar;
 
     /**
      * @Vich\UploadableField(mapping="user_images", fileNameProperty="avatar")
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var DateTime
      */
     private $updated;
+
+
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
@@ -83,6 +111,7 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->updated = new DateTime();
         $this->orders = new ArrayCollection();
         $this->recipes = new ArrayCollection();
     }
@@ -314,8 +343,8 @@ class User implements UserInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): ?string
     {
-        return $this->getName();
+        return $this->getUsername();
     }
 }

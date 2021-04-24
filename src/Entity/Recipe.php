@@ -2,16 +2,43 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RecipeRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  * @Vich\Uploadable
+ *
+ * @ApiResource(
+ *     collectionOperations = {
+ *          "get" = {
+ *              "normalization_context" = {"groups" = {"read:recipes"}}
+ *          },
+ *          "post" = {
+ *              "denormalization_context" = {"groups" = {"write:recipes"}}
+ *          }
+ *     },
+ *     itemOperations = {
+ *          "get" = {
+ *              "normalization_context" = {"groups" = {"read:recipes", "read:recipe"}}
+ *          },
+ *          "put" = {
+ *              "denormalization_context" = {"groups" = {"write:recipe"}}
+ *          },
+ *          "delete",
+ *          "patch"
+ *     }
+ * )
  */
 class Recipe
 {
@@ -19,58 +46,77 @@ class Recipe
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe", "read:orders"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe", "read:order"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $ingredient;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $nbperson;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $preparationtime;
 
     /**
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $picture;
 
     /**
+     * @var File|null
      * @Vich\UploadableField(mapping="recipe_images", fileNameProperty="picture")
-     * @var File
      */
     private $imageFile;
 
     /**
+     * @var DateTime
+     *
      * @ORM\Column(type="datetime")
-     * @var \DateTime
      */
     private $updated;
 
@@ -82,17 +128,22 @@ class Recipe
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Groups({"read:recipes", "write:recipes", "write:recipe"})
      */
     private $user;
 
     public function __construct()
     {
+        $this->updated = new DateTime();
         $this->orders = new ArrayCollection();
     }
 
@@ -213,23 +264,23 @@ class Recipe
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {
-            $this->updated = new \Datetime('now');
+            $this->updated = new Datetime('now');
         }
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getUpdated(): ?\DateTimeInterface
+    public function getUpdated(): ?DateTimeInterface
     {
         return $this->updated;
     }
 
     /**
-     * @param \DateTimeInterface|null $updated
+     * @param DateTimeInterface|null $updated
      * @return $this
      */
-    public function setUpdated(?\DateTimeInterface $updated): self
+    public function setUpdated(?DateTimeInterface $updated): self
     {
         $this->updated = $updated;
         return $this;
@@ -289,7 +340,7 @@ class Recipe
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): ?string
     {
         return $this->getName();
     }

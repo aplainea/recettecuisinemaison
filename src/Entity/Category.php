@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ApiResource(
+ *     normalizationContext = {"groups" = {"read:categories"}},
+ *     itemOperations = {"get", "put", "delete"}
+ * )
  */
 class Category
 {
@@ -16,11 +22,15 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read:categories", "read:recipes"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({"read:categories", "read:recipes"})
      */
     private $name;
 
@@ -81,7 +91,7 @@ class Category
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): ?string
     {
         return $this->getName();
     }
