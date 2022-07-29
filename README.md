@@ -1,7 +1,7 @@
 # Recette Cuisine Maison
 
 Projet réalisé par Antoine P.
-*Copyright Antoine Plaineau 2021*
+*Copyright Antoine P. 2021*
 
 
 # Contexte du projet
