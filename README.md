@@ -1,6 +1,6 @@
 # Recette Cuisine Maison
 
-Projet réalisé par Antoine Plaineau  
+Projet réalisé par Antoine P.
 *Copyright Antoine Plaineau 2021*
 
 
